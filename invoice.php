@@ -1,0 +1,98 @@
+<?php
+
+use rdx\invoicer\Invoice;
+use rdx\invoicer\InvoiceLine;
+
+require 'inc.bootstrap.php';
+
+$invoice = Invoice::find($_GET['id'] ?? 0);
+if (!$invoice) exit('No invoice');
+
+if (isset($_POST['description'], $_POST['billing_date'], $_POST['lines'])) {
+	$lines = $invoice->lines;
+	foreach ($_POST['lines'] as $id => $line) {
+		$data = array_intersect_key($line, array_flip(['day', 'description', 'subtotal']));
+		if ($id == 0) {
+			if (strlen(trim($data['description'] ?? ''))) {
+				InvoiceLine::insert(['invoice_id' => $invoice->id] + $data);
+			}
+		}
+		elseif (isset($lines[$id])) {
+			$lines[$id]->update($data);
+		}
+	}
+
+	$data = array_intersect_key($_POST, array_flip(['description', 'billing_date', 'rate']));
+	$invoice->update($data);
+
+	if (($_POST['_action'] ?? '') === 'finish') {
+		$dompdf = $invoice->renderPdf();
+		$dompdf->stream($invoice->filename, ['Attachment' => 1]);
+		exit;
+	}
+
+	return do_redirect('invoice', ['id' => $invoice->id]);
+}
+
+if (isset($_POST['_copy'], $_POST['number'], $_POST['description'])) {
+	$id = $invoice->copy([
+		'number' => $_POST['number'],
+		'description' => $_POST['description'],
+	]);
+
+	return do_redirect('invoice', ['id' => $id]);
+}
+
+require 'tpl.header.php';
+
+?>
+<h1>
+	<a href="<?= get_url('index') ?>">&lt;&lt;</a> |
+	<a href="<?= get_url('client', ['id' => $invoice->client_id]) ?>"><?= html($invoice->client) ?></a> -
+	<?= html($invoice->number_full) ?> -
+	<a href="<?= get_url('pdf', ['id' => $invoice->id]) ?>">PDF</a>
+</h1>
+
+<form method="post" action>
+	<p><input class="invoice-desc" name="description" value="<?= html($invoice->description) ?>" /></p>
+
+	<table>
+		<thead>
+			<? $invoice->typer->printLinesHeader($invoice) ?>
+		</thead>
+		<tbody>
+			<? foreach ([...$invoice->lines, new InvoiceLine(['id' => 0])] as $i => $line): ?>
+				<? $invoice->typer->printLine($line, $i) ?>
+			<? endforeach ?>
+		</tbody>
+		<tfoot>
+			<? $invoice->typer->printLinesFooter($invoice) ?>
+		</tfoot>
+	</table>
+
+	<p>
+		<button name="_action" value="save">Save</button>
+		&nbsp; | &nbsp;
+		Billing date: <input name="billing_date" type="date" value="<?= html($invoice->billing_date) ?>" />
+		<button name="_action" value="finish">Finish &amp; download</button>
+	</p>
+</form>
+
+<h2>Copy</h2>
+<form method="post" action>
+	<table>
+		<tr>
+			<th>Number</th>
+			<td><input class="invoice-number" name="number" value="<?= html($invoice->number) ?>" type="number" /></td>
+		</tr>
+		<tr>
+			<th>Description</th>
+			<td><input class="invoice-desc" name="description" value="<?= html($invoice->description) ?>" /></td>
+		</tr>
+	</table>
+
+	<p><button name="_copy" value="">Copy</button></p>
+</form>
+<?php
+
+require 'tpl.footer.php';

@@ -1,0 +1,42 @@
+html {
+	font-family: sans-serif;
+}
+
+table {
+	border-collapse: collapse;
+}
+th, td {
+	padding: 5px 8px;
+	border: solid 1px #aaa;
+}
+th {
+	text-align: left;
+}
+
+button:default {
+	font-weight: bold;
+}
+
+.config-wide {
+	width: 30em;
+}
+.config-number {
+	width: 4em;
+}
+
+.invoice-desc {
+	width: 50em;
+}
+.invoice-rate {
+	width: 3em;
+}
+
+.invoice-line-day {
+	width: 3em;
+}
+.invoice-line-desc {
+	width: 50em;
+}
+.invoice-line-subtotal {
+	width: 5em;
+}

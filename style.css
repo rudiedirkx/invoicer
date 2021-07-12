@@ -24,8 +24,15 @@ button:default {
 	width: 4em;
 }
 
+.client-wide {
+	width: 30em;
+}
+
+.invoice-number {
+	width: 3em;
+}
 .invoice-desc {
-	width: 50em;
+	width: 40em;
 }
 .invoice-rate {
 	width: 3em;

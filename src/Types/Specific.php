@@ -8,6 +8,10 @@ use rdx\invoicer\InvoiceType;
 
 class Specific implements InvoiceType {
 
+	public function getLabel() : string {
+		return "Specifics";
+	}
+
 	public function getSummary(Invoice $invoice) : string {
 		return html_money($invoice->total_subtotal);
 	}

@@ -41,7 +41,10 @@ require 'tpl.header.php';
 	</tbody>
 </table>
 
-<h2>Clients</h2>
+<h2>
+	Clients
+	<a href="<?= get_url('client', ['id' => 'new']) ?>">+</a>
+</h2>
 <table>
 	<thead>
 		<tr>
@@ -52,8 +55,8 @@ require 'tpl.header.php';
 	<tbody>
 		<? foreach ($clients as $client): ?>
 			<tr>
-				<td><a href="<?= get_url('client', ['id' => $client->id]) ?>"><?= html($client->prefix) ?></a></td>
-				<td><?= html($client) ?></td>
+				<td><?= html($client->prefix) ?></td>
+				<td><a href="<?= get_url('client', ['id' => $client->id]) ?>"><?= html($client) ?></a></td>
 			</tr>
 		<? endforeach ?>
 	</tbody>

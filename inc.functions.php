@@ -27,6 +27,18 @@ function html_money( float $amount, string $locale = INVOICER_LOCALE ) {
 	return INVOICER_CURRENCY . ' ' . number_format($amount, 2, $seps[1], $seps[0]);
 }
 
+function html_options( $options, $selected = null, $empty = '' ) {
+	$selected = (array) $selected;
+
+	$html = '';
+	$empty && $html .= '<option value="">' . $empty;
+	foreach ( $options AS $value => $label ) {
+		$isSelected = in_array($value, $selected) ? ' selected' : '';
+		$html .= '<option value="' . html($value) . '"' . $isSelected . '>' . html($label) . '</option>';
+	}
+	return $html;
+}
+
 function html( $text ) {
 	return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8') ?: htmlspecialchars((string)$text, ENT_QUOTES, 'ISO-8859-1');
 }

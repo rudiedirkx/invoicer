@@ -8,12 +8,12 @@ require 'inc.bootstrap.php';
 $invoice = Invoice::find($_GET['id'] ?? 0);
 if (!$invoice) exit('No invoice');
 
-if (isset($_POST['description'], $_POST['billing_date'], $_POST['lines'])) {
+if (isset($_POST['number'], $_POST['description'], $_POST['billing_date'], $_POST['lines'])) {
 	$lines = $invoice->lines;
 	foreach ($_POST['lines'] as $id => $line) {
 		$data = array_intersect_key($line, array_flip(['day', 'description', 'subtotal']));
 		if ($id == 0) {
-			if (strlen(trim($data['description'] ?? ''))) {
+			if (strlen(trim($data['description'] ?? '') . trim($data['subtotal'] ?? ''))) {
 				InvoiceLine::insert(['invoice_id' => $invoice->id] + $data);
 			}
 		}
@@ -22,7 +22,7 @@ if (isset($_POST['description'], $_POST['billing_date'], $_POST['lines'])) {
 		}
 	}
 
-	$data = array_intersect_key($_POST, array_flip(['description', 'billing_date', 'rate']));
+	$data = array_intersect_key($_POST, array_flip(['number', 'description', 'billing_date', 'rate']));
 	$invoice->update($data);
 
 	if (($_POST['_action'] ?? '') === 'finish') {
@@ -54,7 +54,10 @@ require 'tpl.header.php';
 </h1>
 
 <form method="post" action>
-	<p><input class="invoice-desc" name="description" value="<?= html($invoice->description) ?>" /></p>
+	<p>
+		<input class="invoice-number" name="number" value="<?= html($invoice->number) ?>" type="number" />
+		<input class="invoice-desc" name="description" value="<?= html($invoice->description) ?>" placeholder="Invoice description..." />
+	</p>
 
 	<table>
 		<thead>

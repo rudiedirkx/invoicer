@@ -14,6 +14,12 @@ class Invoice extends Model {
 		'specific' => Types\Specific::class,
 	];
 
+	static public function getTypesOptions() : array {
+		return array_map(function($class) {
+			return (new $class())->getLabel();
+		}, self::$types);
+	}
+
 
 
 	public function copy( array $override ) : int {
@@ -55,7 +61,7 @@ class Invoice extends Model {
 
 	static public function presave(array &$data) {
 		self::presaveTrim($data);
-		self::presaveNull($data, ['billing_date']);
+		self::presaveNull($data, ['rate', 'billing_date']);
 
 		$data['updated_on'] = time();
 	}

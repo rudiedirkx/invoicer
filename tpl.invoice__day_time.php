@@ -34,7 +34,7 @@
 				<td class="money"><?= html_money($vat = $subtotal * $vat/100) ?></td>
 			</tr>
 			<tr class="space-before total">
-				<td colspan="2">Subtotaal</td>
+				<td colspan="2">Totaal</td>
 				<td></td>
 				<td class="money"><?= html_money($subtotal + $vat) ?></td>
 			</tr>

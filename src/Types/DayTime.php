@@ -32,7 +32,7 @@ class DayTime implements InvoiceType {
 		?>
 		<tr>
 			<td><input class="invoice-line-day" name="lines[<?= $line->id ?>][day]" value="<?= html($line->day) ?>" type="number" <?= $autofocus ?> /></td>
-			<td><input class="invoice-line-desc" name="lines[<?= $line->id ?>][description]" value="<?= html($line->description) ?>" /></td>
+			<td><input class="invoice-line-desc" name="lines[<?= $line->id ?>][description]" value="<?= html($line->description) ?>" list="dl-descriptions" /></td>
 			<td><input class="invoice-line-subtotal" name="lines[<?= $line->id ?>][subtotal]" value="<?= html($line->id ? $line->subtotal_pretty : '') ?>" /></td>
 			<td>
 				<? if ($index == 0): ?>

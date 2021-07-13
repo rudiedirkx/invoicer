@@ -73,6 +73,12 @@ require 'tpl.header.php';
 		</tfoot>
 	</table>
 
+	<datalist id="dl-descriptions">
+		<? foreach (array_unique(array_column($invoice->lines, 'description')) as $desc): ?>
+			<option value="<?= html($desc) ?>"></option>
+		<? endforeach ?>
+	</datalist>
+
 	<p>
 		<button name="_action" value="save">Save</button>
 		&nbsp; | &nbsp;

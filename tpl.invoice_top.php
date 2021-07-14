@@ -4,14 +4,14 @@
 </p>
 
 <p class="them">
-	<b><?= html($invoice->client->name) ?></b>
+	<b><?= html($invoice->client->billing_name) ?></b>
 	<?= html($invoice->client->address) ?>
 </p>
 
 <table class="meta">
 	<tr>
 		<th>Factuurdatum</th>
-		<td><?= date('j-n-Y', strtotime($invoice->billing_date)) ?></td>
+		<td><?= $invoice->billing_date ? date('j-n-Y', strtotime($invoice->billing_date)) : '' ?></td>
 	</tr>
 	<tr>
 		<th>Factuurnummer</th>

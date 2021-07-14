@@ -8,6 +8,8 @@ interface InvoiceType {
 
 	public function getSummary(Invoice $invoice) : string;
 
+	public function getPdfTemplate() : string;
+
 	public function printLinesHeader(Invoice $invoice) : void;
 
 	public function printLine(InvoiceLine $line, int $index) : void;

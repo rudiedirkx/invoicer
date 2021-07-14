@@ -9,6 +9,13 @@ $invoice = Invoice::find($_GET['id'] ?? 0);
 if (!$invoice) exit('No invoice');
 
 if (isset($_POST['number'], $_POST['description'], $_POST['billing_date'], $_POST['lines'])) {
+	$action = $_POST['_action'] ?? '';
+
+	if ($action === 'delete') {
+		$invoice->delete();
+		return do_redirect('client', ['id' => $invoice->client_id]);
+	}
+
 	$lines = $invoice->lines;
 	foreach ($_POST['lines'] as $id => $line) {
 		$data = array_intersect_key($line, array_flip(['day', 'description', 'subtotal']));
@@ -25,7 +32,7 @@ if (isset($_POST['number'], $_POST['description'], $_POST['billing_date'], $_POS
 	$data = array_intersect_key($_POST, array_flip(['number', 'description', 'billing_date', 'rate']));
 	$invoice->update($data);
 
-	if (($_POST['_action'] ?? '') === 'finish') {
+	if ($action === 'finish') {
 		$dompdf = $invoice->renderPdf();
 		$dompdf->stream($invoice->filename, ['Attachment' => 1]);
 		exit;
@@ -84,6 +91,8 @@ require 'tpl.header.php';
 		&nbsp; | &nbsp;
 		Billing date: <input name="billing_date" type="date" value="<?= html($invoice->billing_date) ?>" />
 		<button name="_action" value="finish">Finish &amp; download</button>
+		&nbsp; | &nbsp;
+		<button name="_action" value="delete" style="color: #c00" onclick="return confirm('Sure??')">Delete</button>
 	</p>
 </form>
 

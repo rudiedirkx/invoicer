@@ -37,8 +37,9 @@ class Invoice extends Model {
 		$html = call_user_func(function(Invoice $invoice) {
 			$config = $GLOBALS['config'];
 			$vat = (int) $config->vat;
+			$root = dirname(__DIR__);
 			ob_start();
-			require __DIR__ . "/../tpl.invoice__{$this->type}.php";
+			require $this->typer->getPdfTemplate();
 			return ob_get_clean();
 		}, $this);
 

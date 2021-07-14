@@ -1,10 +1,10 @@
 <html>
 	<head>
-		<? require __DIR__ . '/tpl.invoice_head.php'; ?>
+		<? require $root . '/tpl.invoice_head.php'; ?>
 	</head>
 
 	<body>
-		<? require __DIR__ . '/tpl.invoice_top.php'; ?>
+		<? require $root . '/tpl.invoice_top.php'; ?>
 
 		<table class="lines">
 			<tr class="space-after">

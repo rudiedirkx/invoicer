@@ -16,6 +16,10 @@ class DayTime implements InvoiceType {
 		return html_money($invoice->total_subtotal / 60 * $invoice->rate) . ', ' . InvoiceLine::minutesToPretty($invoice->total_subtotal);
 	}
 
+	public function getPdfTemplate() : string {
+		return __DIR__ . '/../../tpl.invoice__day_time.php';
+	}
+
 	public function printLinesHeader(Invoice $invoice) : void {
 		?>
 		<tr>

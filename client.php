@@ -8,8 +8,8 @@ require 'inc.bootstrap.php';
 $client = ($_GET['id'] ?? 0) === 'new' ? new Client(['name' => 'NEW']) : Client::find($_GET['id'] ?? 0);
 if (!$client) exit('No client');
 
-if (isset($_POST['name'], $_POST['prefix'], $_POST['address'])) {
-	$data = array_intersect_key($_POST, array_flip(['name', 'prefix', 'address']));
+if (isset($_POST['name'], $_POST['prefix'], $_POST['billing_name'], $_POST['address'])) {
+	$data = array_intersect_key($_POST, array_flip(['name', 'prefix', 'billing_name', 'address']));
 	if ($client->id) {
 		$client->update($data);
 	}
@@ -49,6 +49,10 @@ $invoices = $client->invoices;
 		<tr>
 			<th>Prefix</th>
 			<td><input class="client-wide" name="prefix" value="<?= html($client->prefix) ?>" /></td>
+		</tr>
+		<tr>
+			<th>Billing name</th>
+			<td><input class="client-wide" name="billing_name" value="<?= html($client->billing_name) ?>" /></td>
 		</tr>
 		<tr>
 			<th>Address</th>

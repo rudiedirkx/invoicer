@@ -29,21 +29,27 @@ button:default {
 }
 
 .invoice-number {
-	width: 3em;
+	width: 2em;
 }
 .invoice-desc {
-	width: 40em;
+	width: 25em;
 }
 .invoice-rate {
 	width: 3em;
 }
 
 .invoice-line-day {
-	width: 3em;
+	width: 2em;
 }
 .invoice-line-desc {
-	width: 50em;
+	width: 15em;
 }
 .invoice-line-subtotal {
-	width: 5em;
+	width: 4.5em;
+}
+
+@media (max-width: 420px) {
+	.config-wide {
+		width: 20em;
+	}
 }

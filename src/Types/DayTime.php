@@ -26,7 +26,7 @@ class DayTime implements InvoiceType {
 			<th>Day</th>
 			<th>Description</th>
 			<th>Time</th>
-			<th>Rate</th>
+			<th nowrap>Rate</th>
 		</tr>
 		<?php
 	}
@@ -35,13 +35,13 @@ class DayTime implements InvoiceType {
 		$autofocus = $line->id ? '' : 'autofocus';
 		?>
 		<tr>
-			<td><input class="invoice-line-day" name="lines[<?= $line->id ?>][day]" value="<?= html($line->day) ?>" type="number" <?= $autofocus ?> /></td>
+			<td><input class="invoice-line-day" name="lines[<?= $line->id ?>][day]" value="<?= html($line->day ?? date('j')) ?>" type="number" <?= $autofocus ?> /></td>
 			<td><input class="invoice-line-desc" name="lines[<?= $line->id ?>][description]" value="<?= html($line->description) ?>" list="dl-descriptions" /></td>
 			<td><input class="invoice-line-subtotal" name="lines[<?= $line->id ?>][subtotal]" value="<?= html($line->id ? $line->subtotal_pretty : '') ?>" /></td>
-			<td>
+			<td nowrap>
 				<? if ($index == 0): ?>
 					<input class="invoice-rate" name="rate" type="number" value="<?= html($line->invoice->rate) ?>" />
-					/ hour
+					/ h
 				<? endif ?>
 			</td>
 		</tr>
@@ -54,7 +54,7 @@ class DayTime implements InvoiceType {
 			<td></td>
 			<td align="right">Netto total</td>
 			<td><?= html($invoice->total_subtotal_pretty) ?></td>
-			<td><?= html_money($invoice->total_subtotal / 60 * $invoice->rate) ?></td>
+			<td nowrap><?= html_money($invoice->total_subtotal / 60 * $invoice->rate, 0) ?></td>
 		</tr>
 		<?php
 	}

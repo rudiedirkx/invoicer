@@ -42,7 +42,7 @@ class Specific implements InvoiceType {
 		?>
 		<tr>
 			<td align="right">Netto total</td>
-			<td><?= html_money($invoice->total_subtotal) ?></td>
+			<td><?= html_money($invoice->total_subtotal, 0) ?></td>
 		</tr>
 		<?php
 	}

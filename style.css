@@ -29,27 +29,44 @@ button:default {
 }
 
 .invoice-number {
-	width: 2em;
+	width: 3em;
 }
 .invoice-desc {
-	width: 25em;
+	width: 40em;
 }
 .invoice-rate {
 	width: 3em;
 }
 
 .invoice-line-day {
-	width: 2em;
+	width: 3em;
 }
 .invoice-line-desc {
-	width: 15em;
+	width: 50em;
 }
 .invoice-line-subtotal {
-	width: 4.5em;
+	width: 5em;
 }
 
 @media (max-width: 420px) {
 	.config-wide {
 		width: 20em;
+	}
+
+	.invoice-number {
+		width: 2em;
+	}
+	.invoice-desc {
+		width: 25em;
+	}
+
+	.invoice-line-day {
+		width: 2em;
+	}
+	.invoice-line-desc {
+		width: 15em;
+	}
+	.invoice-line-subtotal {
+		width: 4.5em;
 	}
 }

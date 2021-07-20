@@ -20,6 +20,10 @@ class Specific implements InvoiceType {
 		return __DIR__ . '/../../tpl.invoice__specific.php';
 	}
 
+	public function printInvoiceHeader(Invoice $invoice) : void {
+
+	}
+
 	public function printLinesHeader(Invoice $invoice) : void {
 		?>
 		<tr>

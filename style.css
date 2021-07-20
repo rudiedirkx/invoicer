@@ -17,6 +17,10 @@ button:default {
 	font-weight: bold;
 }
 
+.mobile-line + .mobile-line:before {
+	content: " | ";
+}
+
 .config-wide {
 	width: 30em;
 }
@@ -49,6 +53,20 @@ button:default {
 }
 
 @media (max-width: 420px) {
+	button {
+		padding: 8px 10px;
+	}
+
+	.mobile-line {
+		display: block;
+	}
+	.mobile-line + .mobile-line {
+		margin-top: 0.5em;
+	}
+	.mobile-line + .mobile-line:before {
+		display: none;
+	}
+
 	.config-wide {
 		width: 20em;
 	}
@@ -57,14 +75,14 @@ button:default {
 		width: 2em;
 	}
 	.invoice-desc {
-		width: 25em;
+		width: 17em;
 	}
 
 	.invoice-line-day {
 		width: 2em;
 	}
 	.invoice-line-desc {
-		width: 15em;
+		width: 17em;
 	}
 	.invoice-line-subtotal {
 		width: 4.5em;

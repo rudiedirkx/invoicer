@@ -64,6 +64,7 @@ require 'tpl.header.php';
 	<p>
 		<input class="invoice-number" name="number" value="<?= html($invoice->number) ?>" type="number" />
 		<input class="invoice-desc" name="description" value="<?= html($invoice->description) ?>" placeholder="Invoice description..." />
+		<? $invoice->typer->printInvoiceHeader($invoice) ?>
 	</p>
 
 	<table>
@@ -87,12 +88,18 @@ require 'tpl.header.php';
 	</datalist>
 
 	<p>
-		<button name="_action" value="save">Save</button>
-		&nbsp; | &nbsp;
-		Billing date: <input name="billing_date" type="date" value="<?= html($invoice->billing_date) ?>" />
-		<button name="_action" value="finish">Finish &amp; download</button>
-		&nbsp; | &nbsp;
-		<button name="_action" value="delete" style="color: #c00" onclick="return confirm('Sure??')">Delete</button>
+		<span class="mobile-line">
+			<button name="_action" value="save">Save</button>
+		</span>
+		<!-- &nbsp; | &nbsp; -->
+		<span class="mobile-line">
+			Billing date: <input name="billing_date" type="date" value="<?= html($invoice->billing_date) ?>" />
+			<button name="_action" value="finish">Finish &amp; download</button>
+		</span>
+		<!-- &nbsp; | &nbsp; -->
+		<span class="mobile-line">
+			<button name="_action" value="delete" style="color: #c00" onclick="return confirm('Sure??')">Delete</button>
+		</span>
 	</p>
 </form>
 
@@ -100,8 +107,11 @@ require 'tpl.header.php';
 <form method="post" action>
 	<table>
 		<tr>
-			<th>Number</th>
-			<td><input class="invoice-number" name="number" value="<?= html($invoice->number) ?>" type="number" /></td>
+			<th>New number</th>
+			<td>
+				<input type="hidden" name="number" value="<?= html($invoice->number + 1) ?>" />
+				<?= html($invoice->number + 1) ?>
+			</td>
 		</tr>
 		<tr>
 			<th>Description</th>

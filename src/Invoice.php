@@ -7,6 +7,11 @@ use Dompdf\Options;
 
 class Invoice extends Model {
 
+	const MONTHS = [
+		'nl' => ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+		'en' => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+	];
+
 	static public $_table = 'invoices';
 
 	static public $types = [
@@ -86,6 +91,30 @@ class Invoice extends Model {
 	}
 
 
+
+	protected function get_next_number() {
+		return $this->number + 1;
+	}
+
+	protected function get_next_description() {
+		$months = self::MONTHS[INVOICER_LOCALE];
+		$pattern = '#\b(' . implode('|', array_map('preg_quote', $months)) . ') (\d{4})\b#';
+		if (preg_match($pattern, $this->description, $match)) {
+			$m = array_search($match[1], $months);
+			if ($m !== false) {
+				$y = $match[2];
+				$m++;
+				if ($m == count($months)) {
+					$m = 0;
+					$y++;
+				}
+
+				return str_replace($match[0], $months[$m] . ' ' . $y, $this->description);
+			}
+		}
+
+		return $this->description;
+	}
 
 	protected function get_typer() : InvoiceType {
 		$class = self::$types[$this->type];

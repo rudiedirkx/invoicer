@@ -109,13 +109,15 @@ require 'tpl.header.php';
 		<tr>
 			<th>New number</th>
 			<td>
-				<input type="hidden" name="number" value="<?= html($invoice->number + 1) ?>" />
-				<?= html($invoice->number + 1) ?>
+				<input type="hidden" name="number" value="<?= html($invoice->next_number) ?>" />
+				<?= html($invoice->next_number) ?>
 			</td>
 		</tr>
 		<tr>
 			<th>Description</th>
-			<td><input class="invoice-desc" name="description" value="<?= html($invoice->description) ?>" /></td>
+			<td>
+				<input class="invoice-desc" name="description" value="<?= html($invoice->next_description) ?>" />
+			</td>
 		</tr>
 	</table>
 

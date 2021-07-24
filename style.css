@@ -53,7 +53,7 @@ button:default {
 }
 
 @media (max-width: 420px) {
-	button {
+	button, select {
 		padding: 8px 10px;
 	}
 
@@ -68,6 +68,10 @@ button:default {
 	}
 
 	.config-wide {
+		width: 20em;
+	}
+
+	.client-wide {
 		width: 20em;
 	}
 

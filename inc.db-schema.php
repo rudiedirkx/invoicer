@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'version' => 6,
+	'version' => 7,
 	'tables' => [
 		'config' => [
 			'name',
@@ -13,6 +13,7 @@ return [
 			'prefix',
 			'address',
 			'billing_name',
+			'notes',
 		],
 		'invoices' => [
 			'id' => ['pk' => true],

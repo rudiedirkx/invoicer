@@ -31,6 +31,9 @@ button:default {
 .client-wide {
 	width: 30em;
 }
+.client-wider {
+	width: 40em;
+}
 
 .invoice-number {
 	width: 3em;
@@ -73,6 +76,9 @@ button:default {
 
 	.client-wide {
 		width: 20em;
+	}
+	.client-wider {
+		width: 25em;
 	}
 
 	.invoice-number {

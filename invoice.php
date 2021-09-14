@@ -82,7 +82,7 @@ require 'tpl.header.php';
 	</table>
 
 	<datalist id="dl-descriptions">
-		<? foreach (array_unique(array_column($invoice->lines, 'description')) as $desc): ?>
+		<? foreach ($invoice->searchable_descriptions as $desc): ?>
 			<option value="<?= html($desc) ?>"></option>
 		<? endforeach ?>
 	</datalist>

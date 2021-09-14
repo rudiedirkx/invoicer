@@ -92,6 +92,12 @@ class Invoice extends Model {
 
 
 
+	protected function get_searchable_descriptions() {
+		$descs = array_unique(array_column($this->lines, 'description'));
+		natcasesort($descs);
+		return $descs;
+	}
+
 	protected function get_next_number() {
 		return $this->number + 1;
 	}

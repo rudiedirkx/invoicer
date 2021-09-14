@@ -48,4 +48,7 @@
 	.total, .money {
 		font-weight: bold;
 	}
+	.total .money {
+		text-decoration: underline;
+	}
 </style>

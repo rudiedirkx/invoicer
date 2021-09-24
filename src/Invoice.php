@@ -15,6 +15,7 @@ class Invoice extends Model {
 	static public $_table = 'invoices';
 
 	static public $types = [
+		'time' => Types\Time::class,
 		'day_time' => Types\DayTime::class,
 		'specific' => Types\Specific::class,
 	];

@@ -14,32 +14,17 @@ if (isset($_POST['config'])) {
 $clients = Client::all('1 ORDER BY name');
 // Client::eagers($clients, ['invoices', 'invoices.lines']);
 $invoices = Invoice::all('1 ORDER BY updated_on DESC');
-Invoice::eagers($invoices, ['num_lines', 'total_subtotal']);
 
 require 'tpl.header.php';
 
 ?>
 <h2>Invoices</h2>
-<table>
-	<thead>
-		<tr>
-			<th>Number</th>
-			<th>Client</th>
-			<th>Subject</th>
-			<th>Summary</th>
-		</tr>
-	</thead>
-	<tbody>
-		<? foreach ($invoices as $invoice): ?>
-			<tr>
-				<td><a href="<?= get_url('invoice', ['id' => $invoice->id]) ?>"><?= html($invoice->number_full) ?></a></td>
-				<td><?= html($invoice->client) ?></td>
-				<td><?= html($invoice->description) ?></td>
-				<td><?= html($invoice->summary) ?></td>
-			</tr>
-		<? endforeach ?>
-	</tbody>
-</table>
+<?php
+
+$show_client = true;
+include 'tpl.invoices.php';
+
+?>
 
 <h2>
 	Clients

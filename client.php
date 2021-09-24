@@ -59,7 +59,7 @@ $invoices = $client->invoices;
 			<td><textarea class="client-wide" name="address" rows="3"><?= html($client->address) ?></textarea></td>
 		</tr>
 		<tr>
-			<td colspan="2"><textarea class="client-wider" name="notes" rows="3"><?= html($client->notes) ?></textarea></td>
+			<td colspan="2"><textarea class="client-wider" name="notes" rows="3" placeholder="Notes..."><?= html($client->notes) ?></textarea></td>
 		</tr>
 	</table>
 
@@ -72,15 +72,12 @@ $invoices = $client->invoices;
 	<p>New invoice: <select name="new_invoice_type"><?= html_options(Invoice::getTypesOptions()) ?></select> <button>Create</button></p>
 </form>
 
-<ul>
-	<? foreach ($invoices as $invoice): ?>
-		<li>
-			<a href="<?= get_url('invoice', ['id' => $invoice->id]) ?>"><?= html($invoice->number_full) ?></a>
-			-
-			<?= html($invoice->description) ?>
-		</li>
-	<? endforeach ?>
-</ul>
+<?php
+
+$show_client = false;
+include 'tpl.invoices.php';
+
+?>
 
 <?php
 

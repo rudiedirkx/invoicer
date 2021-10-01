@@ -41,7 +41,7 @@ class Time implements InvoiceType {
 		$autofocus = $line->id ? '' : 'autofocus';
 		?>
 		<tr>
-			<td><input class="invoice-line-desc" name="lines[<?= $line->id ?>][description]" value="<?= html($line->description) ?>" list="dl-descriptions" /></td>
+			<td><input class="invoice-line-desc" name="lines[<?= $line->id ?>][description]" value="<?= html($line->description) ?>" list="dl-descriptions" <?= $autofocus ?> /></td>
 			<td><input class="invoice-line-subtotal" name="lines[<?= $line->id ?>][subtotal]" value="<?= html($line->id ? $line->subtotal_pretty : '') ?>" /></td>
 		</tr>
 		<?php

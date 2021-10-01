@@ -16,7 +16,7 @@
 	}
 
 	table {
-		border-collapse: collapse;
+		border-spacing: 1px;
 	}
 	th, td {
 		text-align: left;

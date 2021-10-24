@@ -16,6 +16,14 @@ class Specific implements InvoiceType {
 		return html_money($invoice->total_subtotal);
 	}
 
+	public function getMoney(Invoice $invoice, int $subtotal) : int {
+		return $subtotal;
+	}
+
+	public function getPretty(int $subtotal) : string {
+		return html_money($subtotal);
+	}
+
 	public function getPdfTemplate() : string {
 		return __DIR__ . '/../../tpl.invoice__specific.php';
 	}

@@ -16,14 +16,14 @@
 			<? foreach (array_values($invoice->lines) as $n => $line): ?>
 				<tr>
 					<td><?= html($line->description) ?></td>
-					<td><?= html($line->subtotal_pretty) ?></td>
+					<td><?= html($line->subtotal_time) ?></td>
 					<td><?= $n > 0 ? '' : html_money($invoice->rate) ?></td>
 				</tr>
 				<? $day = $line->day ?>
 			<? endforeach ?>
 			<tr class="space-before">
 				<td>Subtotaal</td>
-				<td><?= html($invoice->total_subtotal_pretty) ?></td>
+				<td><?= html($invoice->total_subtotal_time) ?></td>
 				<td class="money"><?= html_money($subtotal = $invoice->total_subtotal / 60 * $invoice->rate) ?></td>
 			</tr>
 			<tr class="space-before">

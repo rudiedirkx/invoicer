@@ -19,8 +19,16 @@ class InvoiceLine extends Model {
 
 
 
-	protected function get_subtotal_pretty() {
+	protected function get_subtotal_time() {
 		return self::minutesToPretty($this->subtotal);
+	}
+
+	protected function get_subtotal_pretty() {
+		return $this->invoice->typer->getPretty($this->subtotal);
+	}
+
+	protected function get_subtotal_money() {
+		return $this->invoice->typer->getMoney($this->invoice, $this->subtotal);
 	}
 
 
@@ -44,6 +52,10 @@ class InvoiceLine extends Model {
 				throw new RuntimeException(sprintf("Can't convert '%s' to minutes", $data['subtotal']));
 			}
 		}
+	}
+
+	public function init() {
+		$this->subtotal = (int) $this->subtotal;
 	}
 
 	static public function prettyToMinutes(string $pretty, string $locale = INVOICER_LOCALE) : ?int {

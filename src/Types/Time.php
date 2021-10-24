@@ -16,6 +16,14 @@ class Time implements InvoiceType {
 		return html_money($invoice->total_subtotal / 60 * $invoice->rate) . ', ' . InvoiceLine::minutesToPretty($invoice->total_subtotal);
 	}
 
+	public function getMoney(Invoice $invoice, int $subtotal) : int {
+		return $subtotal / 60 * $invoice->rate;
+	}
+
+	public function getPretty(int $subtotal) : string {
+		return InvoiceLine::minutesToPretty($subtotal);
+	}
+
 	public function getPdfTemplate() : string {
 		return __DIR__ . '/../../tpl.invoice__time.php';
 	}
@@ -42,7 +50,7 @@ class Time implements InvoiceType {
 		?>
 		<tr>
 			<td><input class="invoice-line-desc" name="lines[<?= $line->id ?>][description]" value="<?= html($line->description) ?>" list="dl-descriptions" <?= $autofocus ?> /></td>
-			<td><input class="invoice-line-subtotal" name="lines[<?= $line->id ?>][subtotal]" value="<?= html($line->id ? $line->subtotal_pretty : '') ?>" /></td>
+			<td><input class="invoice-line-subtotal" name="lines[<?= $line->id ?>][subtotal]" value="<?= html($line->id ? $line->subtotal_time : '') ?>" /></td>
 		</tr>
 		<?php
 	}
@@ -51,7 +59,7 @@ class Time implements InvoiceType {
 		?>
 		<tr>
 			<td align="right">Netto total</td>
-			<td><?= html($invoice->total_subtotal_pretty) ?></td>
+			<td><?= html($invoice->total_subtotal_time) ?></td>
 		</tr>
 		<tr>
 			<td></td>

@@ -47,6 +47,13 @@ include 'tpl.invoices.php';
 	</tbody>
 </table>
 
+<h2>Search</h2>
+<form method="get" action="search.php">
+	<p>Client: <select name="client" required><?= html_options(array_column($clients, 'name', 'id')) ?></select></p>
+	<p>Text: <input name="text" required /></p>
+	<p><button>Search</button></p>
+</form>
+
 <h2>Config</h2>
 <form method="post" action>
 	<table>

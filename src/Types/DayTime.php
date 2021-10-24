@@ -16,6 +16,14 @@ class DayTime implements InvoiceType {
 		return html_money($invoice->total_subtotal / 60 * $invoice->rate) . ', ' . InvoiceLine::minutesToPretty($invoice->total_subtotal);
 	}
 
+	public function getMoney(Invoice $invoice, int $subtotal) : int {
+		return $subtotal / 60 * $invoice->rate;
+	}
+
+	public function getPretty(int $subtotal) : string {
+		return InvoiceLine::minutesToPretty($subtotal);
+	}
+
 	public function getPdfTemplate() : string {
 		return __DIR__ . '/../../tpl.invoice__day_time.php';
 	}
@@ -44,7 +52,7 @@ class DayTime implements InvoiceType {
 		<tr>
 			<td><input class="invoice-line-day" name="lines[<?= $line->id ?>][day]" value="<?= html($line->day ?? date('j')) ?>" type="number" <?= $autofocus ?> /></td>
 			<td><input class="invoice-line-desc" name="lines[<?= $line->id ?>][description]" value="<?= html($line->description) ?>" list="dl-descriptions" /></td>
-			<td><input class="invoice-line-subtotal" name="lines[<?= $line->id ?>][subtotal]" value="<?= html($line->id ? $line->subtotal_pretty : '') ?>" /></td>
+			<td><input class="invoice-line-subtotal" name="lines[<?= $line->id ?>][subtotal]" value="<?= html($line->id ? $line->subtotal_time : '') ?>" /></td>
 		</tr>
 		<?php
 	}
@@ -54,7 +62,7 @@ class DayTime implements InvoiceType {
 		<tr>
 			<td></td>
 			<td align="right">Netto total</td>
-			<td><?= html($invoice->total_subtotal_pretty) ?></td>
+			<td><?= html($invoice->total_subtotal_time) ?></td>
 		</tr>
 		<tr>
 			<td colspan="2"></td>

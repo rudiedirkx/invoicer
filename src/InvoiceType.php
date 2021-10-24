@@ -8,6 +8,10 @@ interface InvoiceType {
 
 	public function getSummary(Invoice $invoice) : string;
 
+	public function getMoney(Invoice $invoice, int $subtotal) : int;
+
+	public function getPretty(int $subtotal) : string;
+
 	public function getPdfTemplate() : string;
 
 	public function printInvoiceHeader(Invoice $invoice) : void;

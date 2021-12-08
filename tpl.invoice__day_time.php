@@ -39,5 +39,7 @@
 				<td class="money"><?= html_money($subtotal + $vat) ?></td>
 			</tr>
 		</table>
+
+		<? require $root . '/tpl.invoice_bottom.php'; ?>
 	</body>
 </html>

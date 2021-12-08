@@ -8,8 +8,8 @@ require 'inc.bootstrap.php';
 $client = ($_GET['id'] ?? 0) === 'new' ? new Client(['name' => 'NEW']) : Client::find($_GET['id'] ?? 0);
 if (!$client) exit('No client');
 
-if (isset($_POST['name'], $_POST['prefix'], $_POST['billing_name'], $_POST['address'], $_POST['notes'])) {
-	$data = array_intersect_key($_POST, array_flip(['name', 'prefix', 'billing_name', 'address', 'notes']));
+if (isset($_POST['name'], $_POST['prefix'], $_POST['billing_name'], $_POST['billing_footer'], $_POST['address'], $_POST['notes'])) {
+	$data = array_intersect_key($_POST, array_flip(['name', 'prefix', 'billing_name', 'billing_footer', 'address', 'notes']));
 	if ($client->id) {
 		$client->update($data);
 	}
@@ -57,6 +57,10 @@ $invoices = $client->invoices;
 		<tr>
 			<th>Address</th>
 			<td><textarea class="client-wide" name="address" rows="3"><?= html($client->address) ?></textarea></td>
+		</tr>
+		<tr>
+			<th>Billing footer</th>
+			<td><textarea class="client-wide" name="billing_footer" rows="3"><?= html($client->billing_footer) ?></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2"><textarea class="client-wider" name="notes" rows="3" placeholder="Notes..."><?= html($client->notes) ?></textarea></td>

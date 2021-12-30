@@ -31,6 +31,11 @@
 				<td></td>
 				<td class="money"><?= html_money($vat = $subtotal * $vat/100) ?></td>
 			</tr>
+			<?if ($invoice->client->billing_footer): ?>
+				<tr class="space-before client-footer">
+					<td colspan="3"><?= $invoice->client->billing_footer ?></td>
+				</tr>
+			<? endif ?>
 			<tr class="space-before total">
 				<td>Totaal</td>
 				<td></td>

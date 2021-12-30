@@ -19,13 +19,19 @@ if (isset($_POST['number'], $_POST['description'], $_POST['billing_date'], $_POS
 	$lines = $invoice->lines;
 	foreach ($_POST['lines'] as $id => $line) {
 		$data = array_intersect_key($line, array_flip(['day', 'description', 'subtotal']));
+		$empty = !strlen(trim($data['description'] ?? '') . trim($data['subtotal'] ?? ''));
 		if ($id == 0) {
-			if (strlen(trim($data['description'] ?? '') . trim($data['subtotal'] ?? ''))) {
+			if (!$empty) {
 				InvoiceLine::insert(['invoice_id' => $invoice->id] + $data);
 			}
 		}
 		elseif (isset($lines[$id])) {
-			$lines[$id]->update($data);
+			if ($empty) {
+				$lines[$id]->delete();
+			}
+			else {
+				$lines[$id]->update($data);
+			}
 		}
 	}
 

@@ -70,6 +70,14 @@ $invoices = $client->invoices;
 	<p><button>Save</button></p>
 </form>
 
+<h2>Search</h2>
+
+<form method="get" action="search.php">
+	<input type="hidden" name="client" value="<?= $client->id ?>" />
+	<p>Text: <input name="text" required /></p>
+	<p><button>Search</button></p>
+</form>
+
 <h2>Invoices</h2>
 
 <form method="post" action>

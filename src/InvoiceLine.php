@@ -55,7 +55,9 @@ class InvoiceLine extends Model {
 	}
 
 	public function init() {
-		$this->subtotal = (int) $this->subtotal;
+		if (isset($this->subtotal)) {
+			$this->subtotal = (int) $this->subtotal;
+		}
 	}
 
 	static public function prettyToMinutes(string $pretty, string $locale = INVOICER_LOCALE) : ?int {

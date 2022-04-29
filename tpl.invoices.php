@@ -6,7 +6,7 @@ Invoice::eagers($invoices, ['num_lines', 'total_subtotal']);
 
 ?>
 
-<div class="vscroll">
+<div class="vscroll" tabindex="-1">
 	<table>
 		<thead>
 			<tr>
@@ -21,7 +21,12 @@ Invoice::eagers($invoices, ['num_lines', 'total_subtotal']);
 		<tbody>
 			<? foreach ($invoices as $invoice): ?>
 				<tr>
-					<td><a href="<?= get_url('invoice', ['id' => $invoice->id]) ?>"><?= html($invoice->number_full) ?></a></td>
+					<td nowrap>
+						<a href="<?= get_url('invoice', ['id' => $invoice->id]) ?>"><?= html($invoice->number_full) ?></a>
+						<? if ($invoice->billing_date): ?>
+							<span class="billed" title="<?= html($invoice->billing_date) ?>">&#10004;</span>
+						<? endif ?>
+					</td>
 					<? if ($show_client ?? false): ?>
 						<td><?= html($invoice->client) ?></td>
 					<? endif ?>

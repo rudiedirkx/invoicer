@@ -2,7 +2,7 @@
     "name": "rdx/invoicer",
     "type": "project",
     "require": {
-        "rdx/db": "^1.20",
+        "rdx/db": "^1.23",
         "dompdf/dompdf": "^1.0"
     },
     "autoload": {

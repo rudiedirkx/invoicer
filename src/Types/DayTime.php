@@ -66,7 +66,7 @@ class DayTime implements InvoiceType {
 		</tr>
 		<tr>
 			<td colspan="2"></td>
-			<td nowrap><?= html_money($invoice->total_subtotal / 60 * $invoice->rate, 0) ?></td>
+			<td nowrap><?= html_money($invoice->total_subtotal / 60 * $invoice->rate) ?></td>
 		</tr>
 		<?php
 	}

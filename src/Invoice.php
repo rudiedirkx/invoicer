@@ -105,9 +105,14 @@ class Invoice extends Model {
 
 	protected function get_next_description() {
 		$months = self::MONTHS[INVOICER_LOCALE];
-		$pattern = '#\b(' . implode('|', array_map('preg_quote', $months)) . ') (\d{4})\b#';
+		$pattern = '#\b(' . implode('|', array_map('preg_quote', $months)) . ') (\d{4})\b#i';
 		if (preg_match($pattern, $this->description, $match)) {
 			$m = array_search($match[1], $months);
+			$upper = false;
+			if ($m === false) {
+				$m = array_search(strtolower($match[1]), $months);
+				$upper = $m !== false;
+			}
 			if ($m !== false) {
 				$y = $match[2];
 				$m++;
@@ -116,7 +121,11 @@ class Invoice extends Model {
 					$y++;
 				}
 
-				return str_replace($match[0], $months[$m] . ' ' . $y, $this->description);
+				$month = $months[$m];
+				if ($upper) {
+					$month = mb_strtoupper($month[0]) . substr($month, 1);
+				}
+				return str_replace($match[0], $month . ' ' . $y, $this->description);
 			}
 		}
 

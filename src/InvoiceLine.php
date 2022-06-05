@@ -45,7 +45,7 @@ class InvoiceLine extends Model {
 				// hours
 				$data['subtotal'] *= 60;
 			}
-			elseif ($m = self::prettyToMinutes($data['subtotal'])) {
+			elseif (($m = self::prettyToMinutes($data['subtotal'])) !== null) {
 				$data['subtotal'] = $m;
 			}
 			else {

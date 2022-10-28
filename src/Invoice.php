@@ -153,6 +153,10 @@ class Invoice extends Model {
 		return str_pad($this->number, 3, '0', STR_PAD_LEFT);
 	}
 
+	protected function get_total_subtotal_money() {
+		return $this->typer->getMoney($this, $this->total_subtotal);
+	}
+
 	protected function get_total_subtotal_time() {
 		return InvoiceLine::minutesToPretty($this->total_subtotal);
 	}

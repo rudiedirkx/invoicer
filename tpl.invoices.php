@@ -11,7 +11,7 @@ Invoice::eagers($invoices, ['num_lines', 'total_subtotal']);
 		<thead>
 			<tr>
 				<th>Number</th>
-				<? if ($show_client ?? false): ?>
+				<? if ($show_client): ?>
 					<th>Client</th>
 				<? endif ?>
 				<th>Subject</th>
@@ -19,7 +19,9 @@ Invoice::eagers($invoices, ['num_lines', 'total_subtotal']);
 			</tr>
 		</thead>
 		<tbody>
+			<? $total = 0 ?>
 			<? foreach ($invoices as $invoice): ?>
+				<? $total += $invoice->total_subtotal_money ?>
 				<tr>
 					<td nowrap>
 						<a href="<?= get_url('invoice', ['id' => $invoice->id]) ?>"><?= html($invoice->number_full) ?></a>
@@ -27,7 +29,7 @@ Invoice::eagers($invoices, ['num_lines', 'total_subtotal']);
 							<span class="billed" title="<?= html($invoice->billing_date) ?>">&#10004;</span>
 						<? endif ?>
 					</td>
-					<? if ($show_client ?? false): ?>
+					<? if ($show_client): ?>
 						<td><?= html($invoice->client) ?></td>
 					<? endif ?>
 					<td><?= html($invoice->description) ?></td>
@@ -35,5 +37,13 @@ Invoice::eagers($invoices, ['num_lines', 'total_subtotal']);
 				</tr>
 			<? endforeach ?>
 		</tbody>
+		<? if ($show_total): ?>
+			<tfoot>
+				<tr>
+					<td colspan="2"></td>
+					<td style="font-weight: bold"><?= html_money($total) ?></td>
+				</tr>
+			</tfoot>
+		<? endif ?>
 	</table>
 </div>

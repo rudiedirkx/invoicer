@@ -22,6 +22,7 @@ require 'tpl.header.php';
 <?php
 
 $show_client = true;
+$show_total = false;
 include 'tpl.invoices.php';
 
 ?>

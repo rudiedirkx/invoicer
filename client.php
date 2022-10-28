@@ -87,6 +87,7 @@ $invoices = $client->invoices;
 <?php
 
 $show_client = false;
+$show_total = true;
 include 'tpl.invoices.php';
 
 ?>

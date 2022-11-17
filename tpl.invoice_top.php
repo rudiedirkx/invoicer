@@ -11,7 +11,7 @@
 <table class="meta">
 	<tr>
 		<th>Factuurdatum</th>
-		<td><?= $invoice->billing_date ? date('j-n-Y', strtotime($invoice->billing_date)) : '' ?></td>
+		<td><?= $invoice->billing_date ? date('j-n-Y', strtotime($invoice->billing_date)) : '<span style="font-weight: bold; color: red">PREVIEW</span>' ?></td>
 	</tr>
 	<tr>
 		<th>Factuurnummer</th>

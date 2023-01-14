@@ -9,7 +9,7 @@ class Client extends Model {
 
 
 	protected function relate_invoices() {
-		return $this->to_many(Invoice::class, 'client_id')->order('number DESC');
+		return $this->to_many(Invoice::class, 'client_id')->order('cast(number as unsigned) DESC');
 	}
 
 

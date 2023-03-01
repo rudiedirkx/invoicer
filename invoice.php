@@ -8,7 +8,7 @@ require 'inc.bootstrap.php';
 $invoice = Invoice::find($_GET['id'] ?? 0);
 if (!$invoice) exit('No invoice');
 
-if (isset($_POST['number'], $_POST['description'], $_POST['billing_date'], $_POST['lines'])) {
+if (isset($_POST['number'], $_POST['description'], $_POST['billing_date'], $_POST['paid_date'], $_POST['lines'])) {
 	$action = $_POST['_action'] ?? '';
 
 	if ($action === 'delete') {
@@ -35,7 +35,7 @@ if (isset($_POST['number'], $_POST['description'], $_POST['billing_date'], $_POS
 		}
 	}
 
-	$data = array_intersect_key($_POST, array_flip(['number', 'description', 'billing_date', 'rate']));
+	$data = array_intersect_key($_POST, array_flip(['number', 'description', 'billing_date', 'paid_date', 'rate']));
 	$invoice->update($data);
 
 	if ($action === 'finish') {
@@ -102,9 +102,12 @@ require 'tpl.header.php';
 			Billing date: <input name="billing_date" type="date" value="<?= html($invoice->billing_date) ?>" />
 			<button name="_action" value="finish">Finish &amp; download</button>
 		</span>
+		<span class="mobile-line">
+			Paid: <input name="paid_date" type="date" value="<?= html($invoice->paid_date) ?>" />
+		</span>
 		<!-- &nbsp; | &nbsp; -->
 		<span class="mobile-line">
-			<button name="_action" value="delete" style="color: #c00" onclick="return confirm('Sure??')">Delete</button>
+			<button name="_action" value="delete" style="color: #c00" onclick="return confirm('Sure??') && confirm('Nooooo. Yes?')">Delete</button>
 		</span>
 	</p>
 </form>

@@ -13,7 +13,7 @@ if (isset($_POST['config'])) {
 
 $clients = Client::all('1 ORDER BY name');
 // Client::eagers($clients, ['invoices', 'invoices.lines']);
-$invoices = Invoice::all('1 ORDER BY (billing_date IS NULL) DESC, updated_on DESC');
+$invoices = Invoice::all('1 ORDER BY (billing_date IS NULL) DESC, billing_date DESC, updated_on DESC');
 
 require 'tpl.header.php';
 

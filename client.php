@@ -8,8 +8,8 @@ require 'inc.bootstrap.php';
 $client = ($_GET['id'] ?? 0) === 'new' ? new Client(['name' => 'NEW']) : Client::find($_GET['id'] ?? 0);
 if (!$client) exit('No client');
 
-if (isset($_POST['name'], $_POST['prefix'], $_POST['billing_name'], $_POST['billing_footer'], $_POST['address'], $_POST['notes'])) {
-	$data = array_intersect_key($_POST, array_flip(['name', 'prefix', 'billing_name', 'billing_footer', 'address', 'notes']));
+if (isset($_POST['name'], $_POST['prefix'], $_POST['billing_name'], $_POST['billing_footer'], $_POST['address'], $_POST['notes'], $_POST['billing_email'])) {
+	$data = array_intersect_key($_POST, array_flip(['name', 'prefix', 'billing_name', 'billing_footer', 'address', 'notes', 'billing_email']));
 	if ($client->id) {
 		$client->update($data);
 	}
@@ -44,15 +44,24 @@ $invoices = $client->invoices;
 	<table>
 		<tr>
 			<th>Name</th>
-			<td><input class="client-wide" name="name" value="<?= html($client->name) ?>" /></td>
+			<td><input class="client-wide" name="name" required value="<?= html($client->name) ?>" /></td>
 		</tr>
 		<tr>
 			<th>Prefix</th>
-			<td><input class="client-wide" name="prefix" value="<?= html($client->prefix) ?>" /></td>
+			<td><input class="client-wide" name="prefix" required value="<?= html($client->prefix) ?>" /></td>
 		</tr>
 		<tr>
 			<th>Billing name</th>
-			<td><input class="client-wide" name="billing_name" value="<?= html($client->billing_name) ?>" /></td>
+			<td><input class="client-wide" name="billing_name" required value="<?= html($client->billing_name) ?>" /></td>
+		</tr>
+		<tr>
+			<th>Billing email</th>
+			<td>
+				<input class="client-wide" name="billing_email" type="email" value="<?= html($client->billing_email) ?>" />
+				<? if ($client->billing_email): ?>
+					<a href="mailto:<?= html($client->billing_email) ?>">mail</a>
+				<? endif ?>
+			</td>
 		</tr>
 		<tr>
 			<th>Address</th>

@@ -27,6 +27,10 @@ function html_money( float $amount, $decimals = 2, string $locale = INVOICER_LOC
 	return INVOICER_CURRENCY . ' ' . number_format($amount, $decimals, $seps[1], $seps[0]);
 }
 
+function out_date( ?string $date ) {
+	return $date ? date('j-n-Y', strtotime($date)) : '';
+}
+
 function html_options( $options, $selected = null, $empty = '' ) {
 	$selected = (array) $selected;
 

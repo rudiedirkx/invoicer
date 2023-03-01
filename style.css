@@ -6,9 +6,11 @@ table {
 	border-spacing: 0;
 }
 th, td {
-	padding: 5px 8px;
+	padding: 5px 6px;
 	border: solid 1px #aaa;
 	border-width: 1px 0;
+	text-align: left;
+	vertical-align: top;
 }
 th:first-child, td:first-child {
 	border-left-width: 1px;
@@ -16,8 +18,8 @@ th:first-child, td:first-child {
 th:last-child, td:last-child {
 	border-right-width: 1px;
 }
-th {
-	text-align: left;
+th.c, td.c {
+	text-align: center;
 }
 
 button:default {

@@ -28,8 +28,8 @@ class Invoice extends Model {
 
 
 
-	public function copy( array $override ) : int {
-		return self::insert($override + [
+	public function copy( array $override, bool $copyLines = false ) : int {
+		$id = self::insert($override + [
 			'updated_on' => time(),
 			'client_id' => $this->client_id,
 			'number' => $this->number,
@@ -37,6 +37,19 @@ class Invoice extends Model {
 			'type' => $this->type,
 			'rate' => $this->rate,
 		]);
+
+		if ($copyLines) {
+			foreach ($this->lines as $line) {
+				InvoiceLine::insert([
+					'invoice_id' => $id,
+					'day' => $line->day,
+					'description' => $line->description,
+					'subtotal' => $line->subtotal,
+				]);
+			}
+		}
+
+		return $id;
 	}
 
 	public function renderHtml() : string {

@@ -51,7 +51,7 @@ if (isset($_POST['_copy'], $_POST['number'], $_POST['description'])) {
 	$id = $invoice->copy([
 		'number' => $_POST['number'],
 		'description' => $_POST['description'],
-	]);
+	], !empty($_POST['copy_lines']));
 
 	return do_redirect('invoice', ['id' => $id]);
 }
@@ -126,6 +126,15 @@ require 'tpl.header.php';
 			<th>Description</th>
 			<td>
 				<input class="invoice-desc" name="description" value="<?= html($invoice->next_description) ?>" />
+			</td>
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<label>
+					<input name="copy_lines" type="checkbox" />
+					Copy invoice lines?
+				</label>
 			</td>
 		</tr>
 	</table>

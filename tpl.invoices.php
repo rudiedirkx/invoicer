@@ -19,6 +19,7 @@ body:not(.show-dates) .dates-date {
 				<th class="c">
 					<input type="checkbox" onchange="document.body.classList.toggle('show-dates')" title="Toggle showing dates" />
 				</th>
+				<th class="dates-date r" nowrap>Billed</th>
 				<th class="dates-date" nowrap>Billing</th>
 				<th class="dates-date" nowrap>Paid</th>
 				<? if ($show_client): ?>
@@ -41,6 +42,7 @@ body:not(.show-dates) .dates-date {
 							<span class="billed" title="<?= out_date($invoice->billing_date) ?>">&#128338;</span>
 						<? endif ?>
 					</td>
+					<td class="dates-date r" nowrap><?= html_money(round($invoice->total_subtotal_money_inc_vat), 0, currency: false) ?></td>
 					<td class="dates-date" nowrap><?= $invoice->billing_date ?></td>
 					<td class="dates-date" nowrap><?= $invoice->paid_date ?></td>
 					<? if ($show_client): ?>

@@ -21,6 +21,9 @@ th:last-child, td:last-child {
 th.c, td.c {
 	text-align: center;
 }
+th.r, td.r {
+	text-align: right;
+}
 
 button:default {
 	font-weight: bold;

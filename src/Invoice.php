@@ -55,7 +55,7 @@ class Invoice extends Model {
 	public function renderHtml() : string {
 		$html = call_user_func(function(Invoice $invoice) {
 			$config = $GLOBALS['config'];
-			$vat = (int) $config->vat;
+			$vat = $this->vat;
 			$root = dirname(__DIR__);
 			ob_start();
 			require $this->typer->getPdfTemplate();
@@ -154,6 +154,10 @@ class Invoice extends Model {
 		return get_ascii("{$this->client->name} {$this->number_full}", '-') . '.pdf';
 	}
 
+	protected function get_vat() : int {
+		return $GLOBALS['config']->vat;
+	}
+
 	protected function get_summary() {
 		return rtrim($this->num_lines . ' lines, ' . $this->getTypedSummary(), ', ');
 	}
@@ -168,6 +172,10 @@ class Invoice extends Model {
 
 	protected function get_total_subtotal_money() {
 		return $this->typer->getMoney($this, $this->total_subtotal);
+	}
+
+	protected function get_total_subtotal_money_inc_vat() {
+		return $this->total_subtotal_money * (100 + $this->vat) / 100;
 	}
 
 	protected function get_total_subtotal_time() {

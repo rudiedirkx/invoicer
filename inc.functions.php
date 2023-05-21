@@ -22,9 +22,10 @@ function html_asset( $src ) {
 	return $src . $buster;
 }
 
-function html_money( float $amount, $decimals = 2, string $locale = INVOICER_LOCALE ) {
+function html_money( float $amount, $decimals = 2, string $locale = INVOICER_LOCALE, bool $currency = true ) {
 	$seps = InvoiceLine::MONEY_SEPARATORS[$locale];
-	return INVOICER_CURRENCY . ' ' . number_format($amount, $decimals, $seps[1], $seps[0]);
+	$currency = $currency ? INVOICER_CURRENCY . ' ' : '';
+	return $currency . number_format($amount, $decimals, $seps[1], $seps[0]);
 }
 
 function out_date( ?string $date ) {

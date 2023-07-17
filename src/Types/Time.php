@@ -17,7 +17,7 @@ class Time implements InvoiceType {
 	}
 
 	public function getMoney(Invoice $invoice, int $subtotal) : int {
-		return $subtotal / 60 * $invoice->rate;
+		return round($subtotal / 60 * $invoice->rate);
 	}
 
 	public function getPretty(int $subtotal) : string {

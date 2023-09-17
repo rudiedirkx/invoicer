@@ -106,6 +106,16 @@ class Invoice extends Model {
 
 
 
+	protected function get_use_searchable_descriptions() {
+		$prev = $this->number ? self::first([
+			'client_id' => $this->client_id,
+			'number' => $this->number - 1,
+		]) : null;
+		$descs = array_unique([...$this->searchable_descriptions, ...$prev->searchable_descriptions ?? []]);
+		natcasesort($descs);
+		return $descs;
+	}
+
 	protected function get_searchable_descriptions() {
 		$descs = array_unique(array_column($this->lines, 'description'));
 		natcasesort($descs);

@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'version' => 9,
+	'version' => 10,
 	'tables' => [
 		'config' => [
 			'name',
@@ -27,6 +27,7 @@ return [
 			'rate' => ['unsigned' => true],
 			'billing_date' => ['type' => 'date'],
 			'paid_date' => ['type' => 'date'],
+			'notes',
 		],
 		'invoice_lines' => [
 			'id' => ['pk' => true],

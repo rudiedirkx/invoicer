@@ -8,7 +8,7 @@ require 'inc.bootstrap.php';
 $invoice = Invoice::find($_GET['id'] ?? 0);
 if (!$invoice) exit('No invoice');
 
-if (isset($_POST['number'], $_POST['description'], $_POST['billing_date'], $_POST['paid_date'], $_POST['lines'])) {
+if (isset($_POST['number'], $_POST['description'], $_POST['notes'], $_POST['billing_date'], $_POST['paid_date'], $_POST['lines'])) {
 	$action = $_POST['_action'] ?? '';
 
 	if ($action === 'delete') {
@@ -35,7 +35,7 @@ if (isset($_POST['number'], $_POST['description'], $_POST['billing_date'], $_POS
 		}
 	}
 
-	$data = array_intersect_key($_POST, array_flip(['number', 'description', 'billing_date', 'paid_date', 'rate']));
+	$data = array_intersect_key($_POST, array_flip(['number', 'description', 'notes', 'billing_date', 'paid_date', 'rate']));
 	$invoice->update($data);
 
 	if ($action === 'finish') {
@@ -109,6 +109,9 @@ require 'tpl.header.php';
 		<span class="mobile-line">
 			<button name="_action" value="delete" style="color: #c00" onclick="return confirm('Sure??') && confirm('Nooooo. Yes?')">Delete</button>
 		</span>
+	</p>
+	<p>
+		<input class="invoice-notes" name="notes" value="<?= html($invoice->notes ?? '') ?>" placeholder="Admin notes..." />
 	</p>
 </form>
 

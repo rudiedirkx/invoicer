@@ -115,6 +115,13 @@ require 'tpl.header.php';
 	</p>
 </form>
 
+<h2>Search</h2>
+<form method="get" action="search.php">
+	<input type="hidden" name="client" value="<?= $invoice->client_id ?>" />
+	<p>Text: <input name="text" required /></p>
+	<p><button>Search</button></p>
+</form>
+
 <h2>Copy</h2>
 <form method="post" action>
 	<table>

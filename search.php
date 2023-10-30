@@ -56,7 +56,7 @@ require 'tpl.header.php';
 	<tfoot>
 		<tr>
 			<td></td>
-			<td style="font-weight: bold"><?= html_money($total) ?></td>
+			<td style="font-weight: bold"><?= html_money($total, 0) ?></td>
 		</tr>
 	</tfoot>
 </table>

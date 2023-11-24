@@ -18,6 +18,9 @@
 	table {
 		border-spacing: 1px;
 	}
+	tr {
+		vertical-align: top;
+	}
 	th, td {
 		text-align: left;
 		padding: 0;

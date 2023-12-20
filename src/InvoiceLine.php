@@ -62,13 +62,23 @@ class InvoiceLine extends Model {
 
 	static public function prettyToMinutes(string $pretty, string $locale = INVOICER_LOCALE) : ?int {
 		[$_h, $_m] = self::PRETTY_MINUTES[$locale];
-		$pattern = "#^(\d+)([$_h$_m])(?: (\d+)([$_m]))?$#";
-		if (!preg_match($pattern, $pretty, $match)) {
-			return null;
+
+		// 30m, 30
+		if (preg_match("#^(\d+)(?:$_m)?$#", $pretty, $match)) {
+			return (int) $match[1];
 		}
 
-		$factors = [$_h => 60];
-		return $match[1] * ($factors[$match[2]] ?? 1) + ($match[3] ?? 0);
+		// 1u
+		if (preg_match("#^(\d+)$_h$#", $pretty, $match)) {
+			return 60 * $match[1];
+		}
+
+		// 1u 15m, 1u 15
+		if (preg_match("#^(\d+)$_h (\d+)(?:$_m)?$#", $pretty, $match)) {
+			return 60 * $match[1] + $match[2];
+		}
+
+		return null;
 	}
 
 	static public function minutesToPretty(int $mins, string $locale = INVOICER_LOCALE) : string {

@@ -6,7 +6,8 @@ Invoice::eagers($invoices, ['num_lines', 'total_subtotal']);
 
 ?>
 <style>
-body:not(.show-dates) .dates-date {
+body:not(.show-dates) .dates-date,
+body:not(.show-admin-notes) .admin-notes {
 	display: none;
 }
 </style>
@@ -26,7 +27,11 @@ body:not(.show-dates) .dates-date {
 					<th>Client</th>
 				<? endif ?>
 				<th>Subject</th>
-				<th>Summary</th>
+				<th>
+					Summary
+					<input type="checkbox" onchange="document.body.classList.toggle('show-admin-notes')" title="Toggle admin notes" />
+				</th>
+				<th class="admin-notes">Admin notes</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -37,9 +42,9 @@ body:not(.show-dates) .dates-date {
 					<td nowrap><a href="<?= get_url('invoice', ['id' => $invoice->id]) ?>"><?= html($invoice->number_full) ?></a></td>
 					<td class="c">
 						<? if ($invoice->paid_date): ?>
-							<span class="paid" title="<?= out_date($invoice->paid_date) ?> (<?= out_date($invoice->billing_date) ?>)">&#128176;</span>
+							<span class="unicode-icon paid" title="<?= out_date($invoice->paid_date) ?> (<?= out_date($invoice->billing_date) ?>)">&#128176;</span>
 						<? elseif ($invoice->billing_date): ?>
-							<span class="billed" title="<?= out_date($invoice->billing_date) ?>">&#128338;</span>
+							<span class="unicode-icon billed" title="<?= out_date($invoice->billing_date) ?>">&#128338;</span>
 						<? endif ?>
 					</td>
 					<td class="dates-date r" nowrap><?= html_money(round($invoice->total_subtotal_money_inc_vat), 0, currency: false) ?></td>
@@ -50,6 +55,7 @@ body:not(.show-dates) .dates-date {
 					<? endif ?>
 					<td><?= html($invoice->description) ?></td>
 					<td><?= html($invoice->summary) ?></td>
+					<td class="admin-notes"><?= html($invoice->notes) ?></td>
 				</tr>
 			<? endforeach ?>
 		</tbody>

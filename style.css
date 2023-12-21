@@ -33,6 +33,10 @@ button:default {
 	content: " | ";
 }
 
+span.unicode-icon {
+	line-height: 1;
+}
+
 .vscroll {
 	max-height: 400px;
 	overflow-y: auto;

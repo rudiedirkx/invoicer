@@ -35,7 +35,7 @@ require 'tpl.header.php';
 		</tr>
 	</thead>
 	<tbody>
-		<? $inv = null; $total = 0 ?>
+		<? $inv = null; $totalMoney = 0; $totalTime = 0 ?>
 		<? foreach ($lines as $line): ?>
 			<? if ($inv != $line->invoice_id): ?>
 				<tr class="invoice-start">
@@ -50,13 +50,20 @@ require 'tpl.header.php';
 				<td><?= html($line->description) ?></td>
 				<td><?= html($line->subtotal_pretty) ?></td>
 			</tr>
-			<? $total += $line->subtotal_money ?>
+			<? $totalMoney += $line->subtotal_money ?>
+			<? $totalTime += $line->invoice->typer->hasTime() ? $line->subtotal : 0 ?>
 		<? endforeach ?>
 	</tbody>
 	<tfoot>
+		<? if ($totalTime): ?>
+			<tr>
+				<td></td>
+				<td style="font-weight: bold"><?= InvoiceLine::minutesToPretty($totalTime) ?></td>
+			</tr>
+		<? endif ?>
 		<tr>
 			<td></td>
-			<td style="font-weight: bold"><?= html_money($total, 0) ?></td>
+			<td style="font-weight: bold"><?= html_money($totalMoney, 0) ?></td>
 		</tr>
 	</tfoot>
 </table>

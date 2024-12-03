@@ -16,6 +16,10 @@ class DayTime implements InvoiceType {
 		return html_money($invoice->total_subtotal / 60 * $invoice->rate) . ', ' . InvoiceLine::minutesToPretty($invoice->total_subtotal);
 	}
 
+	public function hasTime() : bool {
+		return true;
+	}
+
 	public function getMoney(Invoice $invoice, int $subtotal) : int {
 		return round($subtotal / 60 * $invoice->rate);
 	}

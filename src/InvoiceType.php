@@ -8,6 +8,8 @@ interface InvoiceType {
 
 	public function getSummary(Invoice $invoice) : string;
 
+	public function hasTime() : bool;
+
 	public function getMoney(Invoice $invoice, int $subtotal) : int;
 
 	public function getPretty(int $subtotal) : string;

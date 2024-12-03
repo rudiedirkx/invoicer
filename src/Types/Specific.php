@@ -16,6 +16,10 @@ class Specific implements InvoiceType {
 		return html_money($invoice->total_subtotal);
 	}
 
+	public function hasTime() : bool {
+		return false;
+	}
+
 	public function getMoney(Invoice $invoice, int $subtotal) : int {
 		return $subtotal;
 	}
